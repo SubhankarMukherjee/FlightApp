@@ -3,6 +3,8 @@ package com.flightreservation.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import com.flightreservation.repository.FlightRepository;
 @Controller
 public class FlightController {
 
+	private static Logger LOGGER= LoggerFactory.getLogger(FlightController.class);
 	@Autowired
 	FlightRepository flightrepo;
 	@PostMapping("/findFlights")
@@ -22,6 +25,8 @@ public class FlightController {
 			@RequestParam("departureDate") @DateTimeFormat(pattern="MM-dd-yyyy") Date departureDate, ModelMap map)
 	
 	{
+		LOGGER.info("inside method : findFlight");
+		LOGGER.info("From:{} to:{} DapartureDate:{}",from,to,departureDate);
 		List<Flight> flights = flightrepo.findFlight(from,to,departureDate);
 		map.addAttribute("flights",flights);
 		return "displayFlights";
