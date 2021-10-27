@@ -85,4 +85,12 @@ public class ReservationRequest {
 		this.flightId = flightId;
 	}
 
+	@Override
+	public String toString() {
+		return "ReservationRequest [passengerFirstName=" + passengerFirstName + ", passengerLastName="
+				+ passengerLastName + ", passengerEmail=" + passengerEmail + ", passengerPhone=" + passengerPhone
+				+ ", nameOnTheCard=" + nameOnTheCard + ", cardNumber=" + cardNumber + ", expirationDate="
+				+ expirationDate + ", StringsecurityCode=" + StringsecurityCode + ", flightId=" + flightId + "]";
+	}
+
 }

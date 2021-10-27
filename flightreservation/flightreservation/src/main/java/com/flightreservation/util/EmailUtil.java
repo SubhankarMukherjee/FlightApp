@@ -5,6 +5,8 @@ import java.io.File;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -15,9 +17,11 @@ public class EmailUtil {
 
 	@Autowired
 	JavaMailSender sender;
+	
+	private static Logger LOGGER= LoggerFactory.getLogger(EmailUtil.class);
 	public void generateItinenary(String toadress, String filepath)
 	{
-	
+		LOGGER.info("Inside EMAIL UTIL CLASS generateItinenary method");
 		MimeMessage message = sender.createMimeMessage();
 		
 		try {
@@ -32,7 +36,7 @@ public class EmailUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		LOGGER.info("Sending EMAIL from EMAIL UTIL");
 		sender.send(message);
 		
 		

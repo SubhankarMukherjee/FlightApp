@@ -59,5 +59,11 @@ public class Reservation extends Common{
 		this.created = created;
 	}
 
+	@Override
+	public String toString() {
+		return "Reservation [checkedIn=" + checkedIn + ", numberOfBags=" + numberOfBags + ", passenger=" + passenger
+				+ ", flight=" + flight + ", created=" + created + "]";
+	}
+
 	
 }

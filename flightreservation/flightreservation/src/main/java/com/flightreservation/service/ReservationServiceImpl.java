@@ -5,9 +5,12 @@ import java.sql.Timestamp;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.flightreservation.controller.FlightController;
 import com.flightreservation.dao.ReservationRequest;
 import com.flightreservation.entities.Flight;
 import com.flightreservation.entities.Passenger;
@@ -35,18 +38,21 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private createPDFItinenary createPDFItinenary;
 
-
+	private static Logger LOGGER= LoggerFactory.getLogger(ReservationServiceImpl.class);
 	@Override
 	@Transactional
 	public Reservation bookFlight(ReservationRequest request) {
 
+		LOGGER.info("Inside Service Reservation Class bookflight method");
+		
+		LOGGER.info("ReservationRequest: {}",request);
 		// saving passenger
 		Passenger passenger = new Passenger();
 		passenger.setFirstName(request.getPassengerFirstName());
 		passenger.setLastName(request.getPassengerLastName());
 		passenger.setEmail(request.getPassengerEmail());
 		passenger.setPhone(request.getPassengerPhone());
-
+		LOGGER.info("Saving Passenger");
 		Passenger savedPassenger = passengerRepository.save(passenger);
 
 		// getting flight
@@ -59,10 +65,12 @@ public class ReservationServiceImpl implements ReservationService {
 		reservation.setFlight(savedFlight);
 		
 		reservation.setCreated(new Timestamp(System.currentTimeMillis()));
+		LOGGER.info("Saving Reservation");
 		Reservation savedReservation = reservationRepository.save(reservation);
-		
+		LOGGER.info("Generating PDF Itinenary");
 		String filepath = "C:\\Subhankar\\JAVA\\Practice\\PracticeCRUDWeb\\Itinenary\\"+ savedReservation.getId()+".pdf";
 		createPDFItinenary.createItinenary(savedReservation, filepath);
+		LOGGER.info("Saving Passenger");
 		emailUtil.generateItinenary(reservation.getPassenger().getEmail(), filepath);
 		
 		return savedReservation ;

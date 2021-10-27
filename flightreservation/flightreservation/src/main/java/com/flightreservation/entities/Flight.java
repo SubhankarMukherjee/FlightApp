@@ -8,6 +8,12 @@ import javax.persistence.Entity;
 public class Flight extends Common {
 
 	
+	@Override
+	public String toString() {
+		return "Flight [flightNumber=" + flightNumber + ", operatingAirlines=" + operatingAirlines + ", departureCity="
+				+ departureCity + ", arrivalCity=" + arrivalCity + ", dateOfDeparture=" + dateOfDeparture
+				+ ", estimatedDepartureTime=" + estimatedDepartureTime + "]";
+	}
 	private String flightNumber;
 	private String operatingAirlines;
 	private String departureCity;

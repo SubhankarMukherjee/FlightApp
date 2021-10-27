@@ -3,6 +3,8 @@ package com.flightreservation.util;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.flightreservation.entities.Reservation;
@@ -20,7 +22,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 @Component
 public class createPDFItinenary {
 
+	private static final Logger LOGGER= LoggerFactory.getLogger(createPDFItinenary.class);
 	public void createItinenary(Reservation reservation, String filepath) {
+		
+		
+		LOGGER.info("Inside Create ITINENARY Method of PDF CREATOR Class");
 		Document doc = new Document();
 		Chunk chunk;
 		try {
@@ -41,6 +47,7 @@ public class createPDFItinenary {
 			chunk = new Chunk("Airlines Company Pallabi Pvt LTD", font);
 			doc.add(chunk);
 			doc.close();
+			LOGGER.info("PDF Creation Done");
 
 		} catch (FileNotFoundException | DocumentException e) {
 			// TODO Auto-generated catch block
